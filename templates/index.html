@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Malicious Prediction</title>
+    <style>
+        
+        h1 {
+            font-size: 2.5rem; 
+        }
+        p {
+            font-size: 1.55rem;
+        }
+        .form-label {
+            font-size: 1.36rem;
+        }
+        .predict-button {
+            margin-top: 55px; 
+        }
+    </style>
+</head>
+<body class="container py-5">
+    <h1 class="mb-4 text-center">URL Malicious Prediction</h1>
+    <p class="text-center">Enter a URL below to predict whether it is malicious or not.</p>
+
+    <form action="/predict" method="POST" class="row g-3 justify-content-center">
+        <div class="col-md-6">
+            <label for="url" class="form-label">Enter URL</label>
+            <input type="text" id="url" name="url" class="form-control" placeholder="Enter a URL..." required>
+        </div>
+        <div class="col-auto predict-button">
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </div>
+    </form>
+
+    <div class="text-center mt-4">
+        <a href="/history" class="btn btn-link"><b>View Prediction History</b></a>
+    </div>
+    
+    {% if prediction %}
+        <div class="alert alert-success mt-4 text-center">
+            <h2>Prediction: <span class="badge {% if prediction == 'benign' %}bg-success{% elif prediction == 'defacement' %}bg-primary{% elif prediction == 'phishing' %}bg-danger{% elif prediction == 'malware' %}bg-warning{% endif %}">{{ prediction }}</span></h2>
+            <p><strong>URL:</strong> {{ url }}</p>
+            
+        </div>
+    {% endif %}
+
+    {% if error %}
+        <div class="alert alert-danger mt-4 text-center">
+            <p>{{ error }}</p>
+        </div>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

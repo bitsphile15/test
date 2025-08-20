@@ -1,0 +1,26 @@
+
+
+docker compose --env-file .env up -d --build
+
+
+cd frontend
+npm install
+npm run build
+cd ..
+
+docker compose up -d
+docker compose down
+# Start with rebuild (first time)
+docker compose --env-file .env up -d --build  
+
+docker-compose up
+
+# Start normally
+docker compose --env-file .env up -d  
+
+# Debug logs
+docker compose logs -f backend
+
+docker compose --env-file .env up -d --build
+docker-compose up
+docker compose down
